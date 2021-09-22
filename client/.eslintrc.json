@@ -18,7 +18,8 @@
 		"ecmaVersion": 12,
 		"project": "tsconfig.json",
 		"sourceType": "module",
-		"async": true
+		"async": true,
+		"tsconfigRootDir": "client"
 	},
 	"plugins": ["react", "@typescript-eslint"],
 	"settings": {

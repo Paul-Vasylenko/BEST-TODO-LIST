@@ -4,7 +4,10 @@
   "description": "Simple todo list",
   "main": "index.js",
   "scripts": {
-    "test": "eslint ."
+    "test": "eslint .",
+    "prepare": "husky install",
+    "format-client": "cd client && cd src && npx prettier --write .",
+    "format-server": "cd server && cd src && npx prettier --write ."
   },
   "repository": {
     "type": "git",
