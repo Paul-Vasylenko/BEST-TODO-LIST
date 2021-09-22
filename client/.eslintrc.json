@@ -3,23 +3,23 @@
 		"browser": true,
 		"es2021": true,
 		"node": true
-	},
+	}, //makes it work for different platforms
 	"extends": [
 		"eslint:recommended",
 		"plugin:react/recommended",
 		"plugin:@typescript-eslint/recommended",
 		"plugin:prettier/recommended"
-	],
-	"parser": "@typescript-eslint/parser",
+	], //recommended extentions, prettier is installed by npm
+	"parser": "@typescript-eslint/parser", //standart parser for ts
 	"parserOptions": {
 		"ecmaFeatures": {
-			"jsx": true
+			"jsx": true //allows jsx
 		},
 		"ecmaVersion": 12,
 		"project": "tsconfig.json",
-		"sourceType": "module",
+		"sourceType": "module", //allows using import/export
 		"async": true,
-		"tsconfigRootDir": "client"
+		"tsconfigRootDir": "client" // fix error https://stackoverflow.com/questions/64933543/parsing-error-cannot-read-file-tsconfig-json-eslint
 	},
 	"plugins": ["react", "@typescript-eslint"],
 	"settings": {
@@ -86,7 +86,7 @@
 		"@typescript-eslint/indent": "off",
 		"@typescript-eslint/member-delimiter-style": "off",
 		"@typescript-eslint/semi": "off",
-		"semi": [2, "always"],
+		"semi": [2, "always"], //semicolons always!
 		"prettier/prettier": "off",
 		"no-unused-expressions": "error", //disabled in favour of @typescript-eslint/no-unused-expressions
 		"comma-dangle": "off" // handled by prettier
