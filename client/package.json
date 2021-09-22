@@ -23,7 +23,6 @@
 		"test": "react-scripts test",
 		"eject": "react-scripts eject",
 		"eslint": "eslint .",
-		"prepare": "cd .. && husky install client/.husky",
 		"lint-fix": "eslint src/ --ext .tsx,.ts --fix && prettier src/ --write"
 	},
 	"eslintConfig": {
@@ -50,13 +49,6 @@
 		"eslint": "^7.32.0",
 		"eslint-config-prettier": "^8.3.0",
 		"eslint-plugin-prettier": "^4.0.0",
-		"eslint-plugin-react": "^7.26.0",
-		"husky": "^7.0.2"
-	},
-	"lint-staged": {
-		"**/*.ts?(x)": [
-			"eslint --cache --fix",
-			"prettier --write"
-		]
+		"eslint-plugin-react": "^7.26.0"
 	}
 }
