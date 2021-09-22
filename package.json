@@ -1,0 +1,22 @@
+{
+  "name": "todo-list",
+  "version": "1.0.0",
+  "description": "Simple todo list",
+  "main": "index.js",
+  "scripts": {
+    "test": "eslint ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Paul-Vasylenko/BEST-TODO-LIST.git"
+  },
+  "author": "PaulVasylenko",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Paul-Vasylenko/BEST-TODO-LIST/issues"
+  },
+  "homepage": "https://github.com/Paul-Vasylenko/BEST-TODO-LIST#readme",
+  "devDependencies": {
+    "husky": "^7.0.2"
+  }
+}
