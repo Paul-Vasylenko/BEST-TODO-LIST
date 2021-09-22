@@ -1,4 +1,4 @@
 ### How to run this app?
 
-[x] in /client run npm start
-[x] in /server run [don't know now]
+- `npm install` inside both client and server folders
+- `npm start` inside both client and server folders
