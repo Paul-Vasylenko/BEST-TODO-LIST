@@ -3,5 +3,7 @@
 
 npm run format-client
 npm run format-server
-npm test
+cd client
+npm run eslint
+cd ../
 git add .

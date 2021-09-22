@@ -18,8 +18,7 @@
 		"ecmaVersion": 12,
 		"project": "tsconfig.json",
 		"sourceType": "module", //allows using import/export
-		"async": true,
-		"tsconfigRootDir": "client" // fix error https://stackoverflow.com/questions/64933543/parsing-error-cannot-read-file-tsconfig-json-eslint
+		"async": true
 	},
 	"plugins": ["react", "@typescript-eslint"],
 	"settings": {
