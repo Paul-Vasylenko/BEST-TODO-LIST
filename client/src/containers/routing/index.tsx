@@ -4,6 +4,7 @@ import { ROUTES } from 'common';
 import { useDispatch } from 'react-redux';
 import * as userActions from 'containers/user/logic/actions';
 import { UserData } from 'containers/user/logic/state';
+import { SignUp } from 'containers/sign-up';
 
 export const Routing: React.FC = () => {
 	const dispatch = useDispatch();
@@ -15,7 +16,9 @@ export const Routing: React.FC = () => {
 			<Route path={ROUTES.Main} exact>
 				<button onClick={handleClick}>gogogo</button>
 			</Route>
-			<Route path={ROUTES.SignUp} exact></Route>
+			<Route path={ROUTES.SignUp} exact>
+				<SignUp />
+			</Route>
 			<Route path={ROUTES.SignIn} exact></Route>
 			<Redirect from="*" to={ROUTES.NotFound} />
 		</Switch>
