@@ -1,5 +1,7 @@
 import React from 'react';
-import { Form, Input, Button } from 'antd';
+import { Form, Input } from 'antd';
+import { FormItem } from 'components/basic/form-item/FormItem';
+import { FormTypes } from 'common';
 
 interface IBasicForm {
 	email?: boolean;
@@ -20,34 +22,47 @@ export const BasicForm = ({
 	submitButtonText = 'Submit',
 	needsSubmit = true,
 }: IBasicForm): JSX.Element => {
+	const validateMessages = {
+		required: '${label} is required!',
+		types: {
+			email: '${label} is not a valid email!',
+			number: '${label} is not a valid number!',
+		},
+		number: {
+			range: '${label} must be between ${min} and ${max}',
+		},
+	};
 	return (
-		<Form autoComplete="off" labelCol={{ span: 8 }} wrapperCol={{ span: 16 }} onFinish={onFinish}>
+		<Form
+			autoComplete="off"
+			labelCol={{ span: 8 }}
+			wrapperCol={{ span: 16 }}
+			onFinish={onFinish}
+			validateMessages={validateMessages}
+		>
 			{email ? (
-				<Form.Item
-					name={['user', 'email']}
+				<FormItem
+					name="email"
 					label="Email"
-					rules={[{ required: true, type: 'email', message: 'Please input your email!' }]}
-				>
-					<Input />
-				</Form.Item>
+					required={true}
+					type={FormTypes.EMAIL}
+				/>
 			) : null}
 			{username ? (
-				<Form.Item
-					label="Username"
+				<FormItem
 					name="username"
-					rules={[{ required: true, message: 'Please input your username!' }]}
-				>
-					<Input />
-				</Form.Item>
+					label="Username"
+					required={true}
+					type={FormTypes.TEXT}
+				/>
 			) : null}
 			{password ? (
-				<Form.Item
-					label="Password"
+				<FormItem
 					name="password"
-					rules={[{ required: true, message: 'Please input your password!' }]}
-				>
-					<Input.Password />
-				</Form.Item>
+					label="Password"
+					required={true}
+					type={FormTypes.PASSWORD}
+				/>
 			) : null}
 			{confirmPassword ? (
 				<Form.Item
@@ -58,14 +73,21 @@ export const BasicForm = ({
 					rules={[
 						{
 							required: true,
-							message: 'Please confirm your password!',
+							type: 'string',
 						},
 						({ getFieldValue }) => ({
 							validator(_, value) {
-								if (!value || getFieldValue('password') === value) {
+								if (
+									!value ||
+									getFieldValue('password') === value
+								) {
 									return Promise.resolve();
 								}
-								return Promise.reject(new Error('The two passwords that you entered do not match!'));
+								return Promise.reject(
+									new Error(
+										'The two passwords that you entered do not match!',
+									),
+								);
 							},
 						}),
 					]}
@@ -74,11 +96,10 @@ export const BasicForm = ({
 				</Form.Item>
 			) : null}
 			{needsSubmit ? (
-				<Form.Item>
-					<Button type="primary" htmlType="submit">
-						{submitButtonText}
-					</Button>
-				</Form.Item>
+				<FormItem
+					isSubmitButton={true}
+					submitButtonText={submitButtonText}
+				/>
 			) : null}
 		</Form>
 	);
