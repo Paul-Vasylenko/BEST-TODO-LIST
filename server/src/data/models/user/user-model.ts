@@ -7,8 +7,6 @@ export const User = sequelize.define('user', {
 	name: { type: DataTypes.STRING },
 	email: { type: DataTypes.STRING, unique: true },
 	password: { type: DataTypes.STRING },
-	// todos: { type: DataTypes.ARRAY, defaultValue: [] },
-	//todos
 });
 
 User.hasMany(Todo);
