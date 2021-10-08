@@ -5,5 +5,5 @@ npm run format-client
 npm run format-server
 cd client
 npm run eslint
-cd ../
-git add .
+cd ../server
+npm run eslint

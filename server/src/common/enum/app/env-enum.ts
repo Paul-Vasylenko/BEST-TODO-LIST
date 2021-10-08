@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/extensions
 import { getEnv } from '../../../helpers/index';
 
 const variables = process.env;
@@ -5,6 +6,7 @@ const variables = process.env;
 const ENV = {
 	APP: {
 		PORT: getEnv('PORT'),
+		API_PATH: getEnv('API_PATH'),
 	},
 	DB: {
 		NAME: getEnv('DB_NAME'),

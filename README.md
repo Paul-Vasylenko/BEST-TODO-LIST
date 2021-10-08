@@ -4,3 +4,4 @@
 - configurate `.env` file, check `.env.example` for example
 - `npm start` inside client folder
 - `npm run dev` inside server folder
+ 

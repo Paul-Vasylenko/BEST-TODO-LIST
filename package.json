@@ -6,8 +6,8 @@
   "scripts": {
     "test": "eslint .",
     "prepare": "husky install",
-    "format-client": "cd client && cd src && npx prettier --write .",
-    "format-server": "cd server && cd src && npx prettier --write ."
+    "format-client": "cd client && cd src && npx prettier --check .",
+    "format-server": "cd server && cd src && npx prettier --check ."
   },
   "repository": {
     "type": "git",
