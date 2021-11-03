@@ -1,66 +1,73 @@
-import { NextFunction, Request, Response } from 'express';
-import { User } from '../../data/models';
+import { Token, User } from '../../data/models';
 import { ApiError } from '../../helpers';
+import { Todo } from './../../data/models/todo/todo-model';
 
 class UserService {
-	async create(req: Request, next: NextFunction) {
+	async create({
+		name,
+		email,
+		password,
+		activationLink,
+	}: {
+		name: string;
+		email: string;
+		password: string;
+		activationLink: string;
+	}) {
 		try {
-			const { name, email, password } = req.body;
-			const user = await User.create({ name, email, password });
+			const user = await User.create({ name, email, password, activationLink });
 			return user;
 		} catch (e) {
-			return next(ApiError.badRequest('Can`t create user'));
+			console.log(e);
 		}
 	}
 
-	async getAll(req: Request, next: NextFunction) {
+	async getAll() {
 		try {
-			return await User.findAll();
+			return await User.findAll({
+				include: [Token, Todo],
+			});
 		} catch (e) {
-			return next(ApiError.badRequest('Can`t get users'));
+			console.log(e);
 		}
 	}
 
-	async getOne(req: Request, next: NextFunction) {
+	async getOne(id: string) {
 		try {
-			return await User.findByPk(req.params.id);
+			return await User.findByPk(id);
 		} catch (e) {
-			return next(ApiError.badRequest('Can`t get user'));
+			console.log(e);
 		}
 	}
 
-	async deleteOne(req: Request, next: NextFunction) {
+	async deleteOne(id: string) {
 		try {
-			const userToDelete = await User.findByPk(req.params.id);
+			const userToDelete = await User.findByPk(id);
 			if (!userToDelete) {
 				return ApiError.badRequest("Can't delete unexisting user");
 			}
-			return await userToDelete.destroy();
+			await userToDelete.destroy();
+			return userToDelete;
 		} catch (e) {
-			return next(ApiError.badRequest('Can`t delete user'));
+			console.log(e);
 		}
 	}
-	async updateOne(req: Request, next: NextFunction) {
+	async updateOne(id: string, newUser: Record<string, any>) {
 		try {
-			const userToUpdate: any = await User.findByPk(req.params.id);
+			const userToUpdate: any = await User.findByPk(id);
 			if (!userToUpdate) {
 				return ApiError.badRequest("Can't update unexisting user");
 			}
-			const { name, email, password } = req.body;
-			if (name) {
-				userToUpdate.name = name;
-			}
-			if (email) {
-				userToUpdate.email = email;
-			}
-			if (password) {
-				userToUpdate.password = password;
+			for (const item in newUser) {
+				if (item) {
+					userToUpdate[item] = newUser[item];
+				}
 			}
 			return await userToUpdate.save();
 		} catch (e) {
-			return next(ApiError.badRequest('Can`t delete user'));
+			console.log(e);
 		}
 	}
 }
 
-export default new UserService();
+export const userService = new UserService();
