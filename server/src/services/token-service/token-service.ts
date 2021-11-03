@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken';
 import { ENV } from '../../common';
 import { IToken, Token, User } from '../../data/models';
+import { ApiError } from '../../helpers';
 
 class TokenService {
 	generateTokens(payload: Record<string, any>) {
@@ -42,6 +43,22 @@ class TokenService {
 			},
 			{ include: User },
 		);
+	}
+	async removeToken(refreshToken: string) {
+		const token = await Token.findOne({ where: { refreshToken } });
+		if (!token) {
+			return ApiError.badRequest('Can`t delete this token');
+		}
+		await token.destroy();
+		return token;
+	}
+
+	async findToken(refreshToken: string) {
+		const token = await Token.findOne({ where: { refreshToken } });
+		if (!token) {
+			return ApiError.badRequest('Can`t delete this token');
+		}
+		return token;
 	}
 }
 

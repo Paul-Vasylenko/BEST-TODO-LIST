@@ -1,4 +1,4 @@
-import { User } from '../../data/models';
+import { IUser, User } from '../../data/models';
 import { ApiError } from '../../helpers';
 import { hash, compare } from 'bcrypt';
 import { v4 as uuid } from 'uuid';
@@ -8,6 +8,7 @@ import tokenService from '../token-service/token-service';
 import { mailService } from '../';
 import { apiPath, ENV } from '../../common';
 import { IAuthResponse } from '../../data/models/auth-response';
+import { JwtPayload } from 'jsonwebtoken';
 
 class AuthService {
 	async registration(email: string, password: string, name: string): Promise<IAuthResponse | void> {
@@ -66,26 +67,44 @@ class AuthService {
 			user: userDto,
 		};
 	}
-	async logout() {
-		try {
-			console.log(1);
-		} catch (e) {
-			console.log(e);
-		}
+	async logout(refreshToken: string) {
+		await tokenService.removeToken(refreshToken);
+		return { removed: true, refreshToken };
 	}
-	async refresh(refreshToken: string) {
-		try {
-			console.log(1);
-		} catch (e) {
-			console.log(e);
+	async refresh(refreshToken: string): Promise<IAuthResponse | void> {
+		if (!refreshToken) {
+			throw ApiError.badRequest('No refresh token');
 		}
+		const data: any = tokenService.verifyRefreshToken(refreshToken);
+		const tokenFromDB = await tokenService.findToken(refreshToken);
+		if (!data && !tokenFromDB) {
+			throw ApiError.Unathorized();
+		}
+		const user = await User.findOne({ where: { id: data.id } });
+		if (!user) {
+			throw ApiError.Unathorized();
+		}
+		const userDto = new UserDto({
+			email: user.getDataValue('email'),
+			id: user.getDataValue('id'),
+			isActivated: user.getDataValue('isActivated'),
+			name: user.getDataValue('name'),
+			activationLink: user.getDataValue('activationLink'),
+		});
+		const tokens = tokenService.generateTokens({ ...userDto });
+		await tokenService.saveToken(userDto.id, tokens.refreshToken);
+		return {
+			...tokens,
+			user: userDto,
+		};
 	}
 	async activate(activationLink: string) {
-		try {
-			console.log(1);
-		} catch (e) {
-			console.log(e);
+		const user: any = await User.findOne({ where: { activationLink } });
+		if (!user) {
+			throw ApiError.badRequest('No user with this activation link');
 		}
+		user.isActivated = true;
+		return await user.save();
 	}
 }
 
