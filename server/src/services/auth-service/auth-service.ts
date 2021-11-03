@@ -1,4 +1,4 @@
-import { IUser, User } from '../../data/models';
+import { User } from '../../data/models';
 import { ApiError } from '../../helpers';
 import { hash, compare } from 'bcrypt';
 import { v4 as uuid } from 'uuid';
@@ -8,7 +8,6 @@ import tokenService from '../token-service/token-service';
 import { mailService } from '../';
 import { apiPath, ENV } from '../../common';
 import { IAuthResponse } from '../../data/models/auth-response';
-import { JwtPayload } from 'jsonwebtoken';
 
 class AuthService {
 	async registration(email: string, password: string, name: string): Promise<IAuthResponse | void> {
