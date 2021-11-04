@@ -1,23 +1,23 @@
 import { SignUpPage } from 'components';
+import { useAppSelector } from 'hooks/useAppHooks';
 import React, { useMemo } from 'react';
 import { useDispatch } from 'react-redux';
-import { registration } from './../../store/action-creators/auth-creators';
-import { useAppSelector } from 'hooks/useAppHooks';
-import { ROUTES } from 'common';
+import { login } from 'store/action-creators/auth-creators';
+import { ROUTES } from './../../common/enums/routes';
 
-export const SignUp = (): JSX.Element => {
+interface SignInProps {}
+
+const SignIn: React.FC<SignInProps> = () => {
 	const dispatch = useDispatch();
 	const onFinish = async (values: any) => {
 		const formData: string[] = Object.values(values);
-		dispatch(registration(formData[0], formData[2], formData[1]));
+		dispatch(login(formData[0], formData[1]));
 	};
 	const { errors } = useAppSelector((store) => store.auth);
 	const formElements = useMemo(
 		() => ({
 			email: true,
-			username: true,
 			password: true,
-			confirmPassword: true,
 		}),
 		[],
 	);
@@ -26,9 +26,11 @@ export const SignUp = (): JSX.Element => {
 			onFinish={onFinish}
 			formElements={formElements}
 			error={errors[0]}
-			linkTo={ROUTES.SignIn}
-			textLink="Sign in"
-			header="Sign up"
+			linkTo={ROUTES.SignUp}
+			textLink="Sign up"
+			header="Sign in"
 		/>
 	);
 };
+
+export default SignIn;

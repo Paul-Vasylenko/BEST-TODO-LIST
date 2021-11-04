@@ -9,7 +9,7 @@ class AuthController {
 		try {
 			const errors = validationResult(req);
 			if (!errors.isEmpty()) {
-				return next(ApiError.badRequest('Ошибка валидации', errors.array()));
+				return next(ApiError.badRequest('Validation error', errors.array()));
 			}
 			const { email, password, name } = req.body;
 			const userData = await authService.registration(email, password, name);
@@ -29,7 +29,7 @@ class AuthController {
 		try {
 			const errors = validationResult(req);
 			if (!errors.isEmpty()) {
-				return next(ApiError.badRequest('Ошибка валидации', errors.array()));
+				return next(ApiError.badRequest('Validation error', errors.array()));
 			}
 			const { email, password } = req.body;
 			const userData = await authService.login(email, password);

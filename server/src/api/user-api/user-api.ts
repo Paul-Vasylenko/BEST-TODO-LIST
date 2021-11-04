@@ -1,16 +1,21 @@
 import { userApiPath } from './../../common/api/userApiPath';
 import { Router } from 'express';
 import { userService } from '../../services';
+import { authMiddleware } from '../../middleware';
 
 export function initUserApi(): Router {
 	const userRouter = Router();
 	userRouter
-		.get(userApiPath.ALL, (req, res, next) => {
-			userService
-				.getAll()
-				.then((users) => res.send(users))
-				.catch(next);
-		})
+		.get(
+			userApiPath.ALL,
+			//  authMiddleware,
+			(req, res, next) => {
+				userService
+					.getAll()
+					.then((users) => res.send(users))
+					.catch(next);
+			},
+		)
 		.get(userApiPath.ONE, (req, res, next) => {
 			userService
 				.getOne(req.params.id)
