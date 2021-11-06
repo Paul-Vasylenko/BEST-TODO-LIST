@@ -6,7 +6,7 @@ export interface ITodosState {
 	errors: any[];
 	done: ITodo[];
 	notDone: ITodo[];
-    selected: ITodo|null;
+	selected: ITodo | null;
 }
 
 const initialState: ITodosState = {
@@ -14,7 +14,7 @@ const initialState: ITodosState = {
 	errors: [],
 	done: [],
 	notDone: [],
-    selected: null,
+	selected: null,
 };
 
 export const TodoSlice = createSlice({
@@ -34,8 +34,34 @@ export const TodoSlice = createSlice({
 		setErrors: (state, action: PayloadAction<string>) => {
 			state.errors = [action.payload];
 		},
-        selectTodo: (state, action: PayloadAction<ITodo|null>) => {
+		selectTodo: (state, action: PayloadAction<ITodo | null>) => {
 			state.selected = action.payload;
+		},
+		deleteFromDone: (state, action: PayloadAction<ITodo>) => {
+			state.done = state.done.filter(
+				(todo) => todo.id !== action.payload.id,
+			);
+		},
+		deleteFromNotDone: (state, action: PayloadAction<ITodo>) => {
+			state.notDone = state.notDone.filter(
+				(todo) => todo.id !== action.payload.id,
+			);
+		},
+		updateInDone: (state, action: PayloadAction<ITodo>) => {
+			state.done = state.done.map((todo) =>
+				todo.id === action.payload.id ? action.payload : todo,
+			);
+		},
+		updateInNotDone: (state, action: PayloadAction<ITodo>) => {
+			state.notDone = state.notDone.map((todo) =>
+				todo.id === action.payload.id ? action.payload : todo,
+			);
+		},
+		insertToNotDone: (state, action: PayloadAction<ITodo>) => {
+			state.notDone.unshift(action.payload);
+		},
+		insertToDone: (state, action: PayloadAction<ITodo>) => {
+			state.done.unshift(action.payload);
 		},
 	},
 });

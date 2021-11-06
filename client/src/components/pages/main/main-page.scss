@@ -1,3 +1,25 @@
 .opacity {
-	opacity: 0.5;
+	opacity: 0.7;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: calc(100vw - (100vw - 100%));
+	background-color: #fff;
+	height: calc(100vh - (100vh - 100%));
+}
+.main {
+	padding: 15px;
+	.header {
+		h1 {
+			font-size: 40px;
+		}
+		p {
+			font-size: 25px;
+			margin-bottom: 0;
+		}
+	}
+	.section-header {
+		font-size: 30px;
+		margin-bottom: 0;
+	}
 }
