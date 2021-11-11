@@ -1,0 +1,12 @@
+.modal {
+	position: fixed;
+	width: calc(80vw - (80vw - 80%));
+	height: calc(80vh - (80vh - 80%));
+	margin-left: calc(10vw - (10vw - 10%));
+	margin-top: calc(5vh - (5vh - 5%));
+	top: 0;
+	left: 0;
+	background-color: white;
+	border: 1px solid grey;
+	border-radius: 7px;
+}

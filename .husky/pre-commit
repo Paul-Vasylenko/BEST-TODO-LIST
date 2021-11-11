@@ -1,0 +1,9 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+npm run format-client
+npm run format-server
+cd client
+npm run eslint
+cd ../server
+npm run eslint

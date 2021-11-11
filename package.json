@@ -1,0 +1,33 @@
+{
+  "name": "todo-list",
+  "version": "1.0.0",
+  "description": "Simple todo list",
+  "main": "index.js",
+  "scripts": {
+    "test": "eslint .",
+    "prepare": "husky install",
+    "format-client": "cd client && cd src && npx prettier --check .",
+    "format-server": "cd server && cd src && npx prettier --check .",
+    "format-client:fix": "cd client && cd src && npx prettier --write .",
+    "format-server:fix": "cd server && cd src && npx prettier --write ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Paul-Vasylenko/BEST-TODO-LIST.git"
+  },
+  "author": "PaulVasylenko",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Paul-Vasylenko/BEST-TODO-LIST/issues"
+  },
+  "homepage": "https://github.com/Paul-Vasylenko/BEST-TODO-LIST#readme",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.32.0",
+    "@typescript-eslint/parser": "^4.32.0",
+    "eslint": "^7.32.0",
+    "husky": "^7.0.2"
+  },
+  "dependencies": {
+    "@ant-design/icons": "^4.7.0"
+  }
+}
